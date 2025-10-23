@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        body {
+            /* Your confirmed background image */
+            background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); 
+            background-size: cover;       
+            background-position: center;  
+            background-repeat: no-repeat; 
+            height: 100vh;                
+            margin: 0;                    
+            display: flex;                
+            flex-direction: column; 
+            /* Pushes content to the bottom of the viewport */
+            justify-content: flex-end;    
+            align-items: center;          
+        }
+
+        /* --- New style for the added image to ensure it's displayed correctly --- */
+        .centered-image {
+            max-width: 100%; /* Ensures image doesn't stretch beyond viewport width */
+            height: auto;
+            margin-bottom: 10px; /* Small space between the image and the link text */
+        }
+        /* ------------------------------------------------------------------------ */
+
+        .enter-link {
+            font-size: 2.5em;
+            color: red;
+            text-align: center; 
+            padding-bottom: 30px;
+            font-weight: 900;
+            text-shadow: 0px 0px 10px black, 0px 0px 5px black; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap; 
+        }
+
+        .enter-link a {
+            color: red;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        .enter-link a:hover {
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="centered-image">
+        <img src="https://urlto.me/1RrZ" alt="Image above the link">
+    </div>
+    
+    <div class="enter-link">
+        CLICK <a href="https://antifawatchuk.blogspot.com/p/far-left-extremist-antifa-organisations.html?m=1" target="_blank">HERE</a> TO ENTER
+    </div>
+</body>
+</html>
