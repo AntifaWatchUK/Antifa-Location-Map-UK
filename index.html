@@ -13,10 +13,10 @@
         overflow-x: hidden;
     }
 
-    /* Top heading */
+    /* Top heading slightly higher */
     .top-heading {
         position: fixed;
-        top: 15%;            
+        top: 10%;            
         left: 50%;
         transform: translateX(-50%);
         color: red;
@@ -30,10 +30,10 @@
         font-weight: 900;
     }
 
-    /* Background image */
+    /* Background image moved slightly up */
     .background-img {
         position: fixed;      
-        top: 30%;           
+        top: 20%;           
         left: 50%;
         transform: translateX(-50%);
         width: 80%;           
@@ -44,7 +44,7 @@
         pointer-events: none; 
     }
 
-    /* Bottom content wrapper using flex spacing */
+    /* Bottom content wrapper stays at bottom */
     .bottom-content-wrapper {
         position: fixed;      
         bottom: 5%;           
@@ -57,12 +57,12 @@
         text-align: center;
     }
 
-    /* Map label inside bottom wrapper, spaced properly */
+    /* Map label moved slightly up inside bottom wrapper */
     .map-label {
         font-size: 1.8em;
         font-weight: 900;
         color: red;
-        margin-bottom: 25px; /* space between label and image/button */
+        margin-bottom: 20px; /* space between label and small image */
     }
 
     .centered-image img {
@@ -104,10 +104,15 @@
         transform: scale(1.05);
     }
 
+    /* Responsive tweaks */
     @media (max-width: 600px) {
         .top-heading {
             font-size: 1.5em;
-            top: 10%;
+            top: 8%;
+        }
+        .background-img {
+            top: 18%;
+            width: 90%;
         }
         .map-label {
             font-size: 1.5em;
