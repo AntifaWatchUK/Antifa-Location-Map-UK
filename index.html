@@ -8,37 +8,24 @@
     html, body {
         height: 100%;
         margin: 0;
-        position: relative;
-        background-color: black;
         font-family: sans-serif;
-    }
-
-    /* Background image wrapper */
-    .background {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;           /* default width */
-        max-width: 600px;     /* prevent it from being too big on large screens */
-        height: auto;
-        max-height: 90%;      /* never exceed 90% of viewport height */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: black;
         background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg');
-        background-size: contain;
         background-repeat: no-repeat;
         background-position: center top;
-        z-index: 0;
+        background-size: 80% auto; /* smaller background */
     }
 
-    /* Content on top */
     .bottom-content-wrapper {
-        position: relative;  
-        z-index: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
-        bottom: 5%;
         margin-bottom: 5%;
+        z-index: 1;
     }
 
     .centered-image img {
@@ -83,31 +70,14 @@
 
     /* Responsive tweaks */
     @media (max-width: 600px) {
-        .background {
-            width: 90%;        /* slightly larger on small screens */
-            max-height: 70%;   /* scale down to fit smaller screens */
-        }
-
         .enter-link-box {
             font-size: 1.5em;
             padding: 15px 20px;
-        }
-
-        .bottom-content-wrapper {
-            bottom: 7%;
-        }
-    }
-
-    @media (max-height: 500px) {
-        .background {
-            max-height: 60%;   /* shorter screens */
         }
     }
 </style>
 </head>
 <body>
-    <div class="background"></div>
-
     <div class="bottom-content-wrapper">
         <div class="centered-image">
             <img src="https://urlto.me/1RrZ" alt="Image above the link">
