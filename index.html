@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Page</title>
-    <style>
+    <style type="text/css"> 
         body {
             /* Background and layout settings */
             background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); 
@@ -21,9 +21,9 @@
 
         /* Styling for the small image */
         .centered-image img { 
-            /* --- ADJUSTED SIZE: Reduced by 25% (150px * 0.75 = 112.5px) --- */
-            max-width: 112.5px; 
-            /* ----------------------------------------------------------------- */
+            /* --- SIGNIFICANTLY SMALLER SIZE: 5% of the viewport width (vw) --- */
+            max-width: 5vw; /* This makes the image 5% of the screen width */
+            /* ------------------------------------------------------------------ */
             height: auto;
             margin-bottom: 5px; 
             display: block; 
