@@ -6,159 +6,150 @@
     <title>Anti-Fascist Network Map</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin=""/>
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20n6a9O+SolAF18y3FCPHNszjD0I5Hzb50vWSlPNWA8="
-        crossorigin=""></script>
+    <!-- Use Inter font family -->
     <style>
-        /*
-          CRITICAL FIX: Explicitly define the map container height.
-          The h-screen/flex approach can sometimes fail in certain environments.
-          We use calc() to ensure the map fills the whole screen, minus the header/margins.
-        */
+        .font-inter { font-family: 'Inter', sans-serif; }
+        /* CRITICAL: Ensure the map container takes up the full viewport height */
         #map {
-            height: 100%; /* Fill the parent container defined by CSS/Tailwind */
+            height: calc(100vh - 120px); /* Adjusting for header and margins */
             width: 100%;
-            display: block;
-            border-radius: 0.5rem;
-        }
-
-        .leaflet-popup-content-wrapper {
-            border-radius: 0.5rem;
-            padding: 0.5rem 0.75rem;
-        }
-        .leaflet-popup-content p {
-            margin: 0;
-            line-height: 1.5;
+            border-radius: 0.75rem; /* rounded-xl equivalent */
         }
     </style>
 </head>
-<body class="bg-gray-100 font-inter antialiased overflow-hidden">
+<body class="bg-gray-100 font-inter antialiased">
 
-    <!-- Main container uses h-screen to define the full available vertical space -->
-    <div class="flex flex-col h-screen">
+    <!-- Main container for layout -->
+    <div class="p-4 flex flex-col h-screen">
         
-        <!-- Header element (fixed height part) -->
-        <header id="map-header" class="p-4 bg-white shadow-lg rounded-b-xl z-[1000] mb-2">
+        <!-- Header -->
+        <header class="mb-4 p-4 bg-white shadow-lg rounded-xl z-10">
             <h1 class="text-2xl font-bold text-red-600">Anti-Fascist Network Locations</h1>
-            <p class="text-gray-600 text-sm">Click a marker to see the group name and area.</p>
+            <p class="text-gray-600 text-sm">A visual network across the UK and Ireland. Click a marker to see the group.</p>
         </header>
 
-        <!-- Map Container: Uses flex-grow to take the remaining height -->
-        <div id="map-container" class="flex-grow rounded-xl shadow-2xl overflow-hidden mx-4 mb-4">
-            <!-- Map element: h-full w-full ensures it fills its parent container -->
-            <div id="map" class="h-full w-full"></div>
+        <!-- Map Container -->
+        <div id="map-container" class="flex-grow shadow-2xl overflow-hidden">
+            <div id="map"></div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Configuration and data setup
-            const mapCenter = [53.8, -2.5]; // Central point for UK and Ireland
-            const initialZoom = 6;
+        // Data containing all locations
+        const locations = [
+            { name: "Aberystwyth Anti-Fascists", area: "Aberystwyth, Wales", lat: 52.4155, lon: -4.0829 },
+            { name: "ACA Manchester", area: "Manchester, England", lat: 53.4809, lon: -2.2374 },
+            { name: "AFA Ireland", area: "Dublin, Ireland", lat: 53.3501, lon: -6.2662 },
+            { name: "Aylesbury Anti-Fascists", area: "Aylesbury, England", lat: 51.8167, lon: -0.8146 },
+            { name: "Ayrshire Against Fascism", area: "Ayrshire, Scotland", lat: 55.5000, lon: -4.5000 },
+            { name: "Belfast Anti-Fascist Alliance", area: "Belfast, Northern Ireland", lat: 54.6079, lon: -5.9264 },
+            { name: "Belfast Communities Against Fascism", area: "Belfast, Northern Ireland", lat: 54.6079, lon: -5.9264 },
+            { name: "Bury St Edmunds Anti-Fascists", area: "Bury St Edmunds, England", lat: 52.2463, lon: 0.7111 },
+            { name: "Cambridge Anti-Fascists", area: "Cambridge, England", lat: 52.2053, lon: 0.1192 },
+            { name: "Cambridge Unite Against Fascism", area: "Cambridge, England", lat: 52.2053, lon: 0.1192 },
+            { name: "Camden Anti-Fascists", area: "Camden, London, England", lat: 51.5410, lon: -0.1420 },
+            { name: "Camden Anti Raids", area: "Camden, London, England", lat: 51.5410, lon: -0.1420 },
+            { name: "Devon & Cornwall Anti-Fascist Network", area: "Exeter/Plymouth area, England", lat: 50.7210, lon: -3.5339 },
+            { name: "Derry Anti-Fascists", area: "Derry (Londonderry), Northern Ireland", lat: 54.9970, lon: -7.3080 },
+            { name: "Doncaster Antifascists", area: "Doncaster, England", lat: 53.5220, lon: -1.1290 },
+            { name: "Anti-Fascist Action Dundee", area: "Dundee, Scotland", lat: 56.4620, lon: -2.9707 },
+            { name: "East Anglian Anti-Fascist Network", area: "Norwich/Ipswich area, England", lat: 52.6309, lon: 1.2974 },
+            { name: "East Midlands Anti-Fascists", area: "Nottingham/Leicester/Derby area, England", lat: 52.9548, lon: -1.1581 },
+            { name: "Hastings Solidarity", area: "Hastings, England", lat: 50.8580, lon: 0.6000 },
+            { name: "High Wycombe Antifa Network", area: "High Wycombe, England", lat: 51.6289, lon: -0.7480 },
+            { name: "Wycombe Antifa", area: "High Wycombe, England", lat: 51.6289, lon: -0.7480 },
+            { name: "Hull Anti-Fascist Action", area: "Hull, England", lat: 53.7676, lon: -0.3274 },
+            { name: "Kent Anti Racism Network", area: "Kent (Canterbury/Maidstone), England", lat: 51.2780, lon: 0.5200 },
+            { name: "Kirklees Anti-Fascist Assembly", area: "Huddersfield, England", lat: 53.6450, lon: -1.7830 },
+            { name: "Leeds Anti-Fascist Network", area: "Leeds, England", lat: 53.8000, lon: -1.5491 },
+            { name: "Leeds Anti-Fascist Assembly", area: "Leeds, England", lat: 53.8000, lon: -1.5491 },
+            { name: "Leicester Anti-Fascists", area: "Leicester, England", lat: 52.6369, lon: -1.1398 },
+            { name: "Lincoln Anti-Fascists", area: "Lincoln, England", lat: 53.2296, lon: -0.5370 },
+            { name: "London Anti-Fascist Assembly", area: "London, England", lat: 51.5074, lon: -0.1278 },
+            { name: "London Antifascist Network", area: "London, England", lat: 51.5074, lon: -0.1278 },
+            { name: "London Black Revolutionary Socialists", area: "London, England", lat: 51.5074, lon: -0.1278 },
+            { name: "Greater Manchester Unite Against Fascism", area: "Manchester, England", lat: 53.4809, lon: -2.2374 },
+            { name: "Mansfield Against Racism & Fascism", area: "Mansfield, England", lat: 53.4160, lon: -1.2000 },
+            { name: "Midlands Anti-Fascist Network", area: "Birmingham/Nottingham area, England", lat: 52.4862, lon: -1.8904 },
+            { name: "North East Anti-Fascist", area: "Newcastle upon Tyne, England", lat: 54.9783, lon: -1.6178 },
+            { name: "Norwich Anti-Fascists", area: "Norwich, England", lat: 52.6309, lon: 1.2974 },
+            { name: "Nottingham Anti-Fascists", area: "Nottingham, England", lat: 52.9548, lon: -1.1581 },
+            { name: "Plymouth Anti-Fascists", area: "Plymouth, England", lat: 50.3755, lon: -4.1426 },
+            { name: "Portsmouth Nazi Watch", area: "Portsmouth, England", lat: 50.8198, lon: -1.0872 },
+            { name: "Scarborough Anti-Fascists", area: "Scarborough, England", lat: 54.2770, lon: -0.4024 },
+            { name: "Scotland United Against the Racist SDL", area: "Glasgow, Scotland", lat: 55.8642, lon: -4.2518 },
+            { name: "South East Anti-Fascists", area: "Brighton area, England", lat: 50.8225, lon: -0.1372 },
+            { name: "Southend Anti-Fascists", area: "Southend-on-Sea, England", lat: 51.5413, lon: 0.7131 },
+            { name: "Swansea Antifa", area: "Swansea, Wales", lat: 51.6214, lon: -3.9436 },
+            { name: "Welsh Valleys Anti-Fascists", area: "South Wales Valleys, Wales", lat: 51.7000, lon: -3.5000 },
+            { name: "York Anti-Fascists", area: "York, England", lat: 53.9590, lon: -1.0815 },
+        ];
 
-            const locations = [
-                { name: "Aberystwyth Anti-Fascists", area: "Aberystwyth, Wales", lat: 52.4155, lon: -4.0829 },
-                { name: "ACA Manchester", area: "Manchester, England", lat: 53.4809, lon: -2.2374 },
-                { name: "AFA Ireland", area: "Dublin, Ireland", lat: 53.3501, lon: -6.2662 },
-                { name: "Aylesbury Anti-Fascists", area: "Aylesbury, England", lat: 51.8167, lon: -0.8146 },
-                { name: "Ayrshire Against Fascism", area: "Ayrshire, Scotland", lat: 55.5000, lon: -4.5000 },
-                { name: "Belfast Anti-Fascist Alliance", area: "Belfast, Northern Ireland", lat: 54.6079, lon: -5.9264 },
-                { name: "Belfast Communities Against Fascism", area: "Belfast, Northern Ireland", lat: 54.6079, lon: -5.9264 },
-                { name: "Bury St Edmunds Anti-Fascists", area: "Bury St Edmunds, England", lat: 52.2463, lon: 0.7111 },
-                { name: "Cambridge Anti-Fascists", area: "Cambridge, England", lat: 52.2053, lon: 0.1192 },
-                { name: "Cambridge Unite Against Fascism", area: "Cambridge, England", lat: 52.2053, lon: 0.1192 },
-                { name: "Camden Anti-Fascists", area: "Camden, London, England", lat: 51.5410, lon: -0.1420 },
-                { name: "Camden Anti Raids", area: "Camden, London, England", lat: 51.5410, lon: -0.1420 },
-                { name: "Devon & Cornwall Anti-Fascist Network", area: "Exeter/Plymouth area, England", lat: 50.7210, lon: -3.5339 },
-                { name: "Derry Anti-Fascists", area: "Derry (Londonderry), Northern Ireland", lat: 54.9970, lon: -7.3080 },
-                { name: "Doncaster Antifascists", area: "Doncaster, England", lat: 53.5220, lon: -1.1290 },
-                { name: "Anti-Fascist Action Dundee", area: "Dundee, Scotland", lat: 56.4620, lon: -2.9707 },
-                { name: "East Anglian Anti-Fascist Network", area: "Norwich/Ipswich area, England", lat: 52.6309, lon: 1.2974 },
-                { name: "East Midlands Anti-Fascists", area: "Nottingham/Leicester/Derby area, England", lat: 52.9548, lon: -1.1581 },
-                { name: "Hastings Solidarity", area: "Hastings, England", lat: 50.8580, lon: 0.6000 },
-                { name: "High Wycombe Antifa Network", area: "High Wycombe, England", lat: 51.6289, lon: -0.7480 },
-                { name: "Wycombe Antifa", area: "High Wycombe, England", lat: 51.6289, lon: -0.7480 },
-                { name: "Hull Anti-Fascist Action", area: "Hull, England", lat: 53.7676, lon: -0.3274 },
-                { name: "Kent Anti Racism Network", area: "Kent (Canterbury/Maidstone), England", lat: 51.2780, lon: 0.5200 },
-                { name: "Kirklees Anti-Fascist Assembly", area: "Huddersfield, England", lat: 53.6450, lon: -1.7830 },
-                { name: "Leeds Anti-Fascist Network", area: "Leeds, England", lat: 53.8000, lon: -1.5491 },
-                { name: "Leeds Anti-Fascist Assembly", area: "Leeds, England", lat: 53.8000, lon: -1.5491 },
-                { name: "Leicester Anti-Fascists", area: "Leicester, England", lat: 52.6369, lon: -1.1398 },
-                { name: "Lincoln Anti-Fascists", area: "Lincoln, England", lat: 53.2296, lon: -0.5370 },
-                { name: "London Anti-Fascist Assembly", area: "London, England", lat: 51.5074, lon: -0.1278 },
-                { name: "London Antifascist Network", area: "London, England", lat: 51.5074, lon: -0.1278 },
-                { name: "London Black Revolutionary Socialists", area: "London, England", lat: 51.5074, lon: -0.1278 },
-                { name: "Greater Manchester Unite Against Fascism", area: "Manchester, England", lat: 53.4809, lon: -2.2374 },
-                { name: "Mansfield Against Racism & Fascism", area: "Mansfield, England", lat: 53.4160, lon: -1.2000 },
-                { name: "Midlands Anti-Fascist Network", area: "Birmingham/Nottingham area, England", lat: 52.4862, lon: -1.8904 },
-                { name: "North East Anti-Fascist", area: "Newcastle upon Tyne, England", lat: 54.9783, lon: -1.6178 },
-                { name: "Norwich Anti-Fascists", area: "Norwich, England", lat: 52.6309, lon: 1.2974 },
-                { name: "Nottingham Anti-Fascists", area: "Nottingham, England", lat: 52.9548, lon: -1.1581 },
-                { name: "Plymouth Anti-Fascists", area: "Plymouth, England", lat: 50.3755, lon: -4.1426 },
-                { name: "Portsmouth Nazi Watch", area: "Portsmouth, England", lat: 50.8198, lon: -1.0872 },
-                { name: "Scarborough Anti-Fascists", area: "Scarborough, England", lat: 54.2770, lon: -0.4024 },
-                { name: "Scotland United Against the Racist SDL", area: "Glasgow, Scotland", lat: 55.8642, lon: -4.2518 },
-                { name: "South East Anti-Fascists", area: "Brighton area, England", lat: 50.8225, lon: -0.1372 },
-                { name: "Southend Anti-Fascists", area: "Southend-on-Sea, England", lat: 51.5413, lon: 0.7131 },
-                { name: "Swansea Antifa", area: "Swansea, Wales", lat: 51.6214, lon: -3.9436 },
-                { name: "Welsh Valleys Anti-Fascists", area: "South Wales Valleys, Wales", lat: 51.7000, lon: -3.5000 },
-                { name: "York Anti-Fascists", area: "York, England", lat: 53.9590, lon: -1.0815 },
-            ];
+        let map;
+        const infowindow = new google.maps.InfoWindow();
 
-            // Initialize the map
-            const map = L.map('map').setView(mapCenter, initialZoom);
-
-            // Add the base tile layer (OpenStreetMap)
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-
-            // Define custom red icon 
-            const redIcon = new L.Icon({
-                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41]
-            });
+        function initMap() {
+            // Calculate bounds to center the map on all locations
+            const bounds = new google.maps.LatLngBounds();
             
-            // Loop through locations and add markers
-            locations.forEach(location => {
-                const { name, area, lat, lon } = location;
-
-                // Create the popup content
-                const popupContent = `
-                    <div class="font-sans">
-                        <p class="font-bold text-base text-red-700">${name}</p>
-                        <p class="text-gray-700 text-sm">${area}</p>
-                    </div>
-                `;
-
-                // Add the marker to the map
-                L.marker([lat, lon], { icon: redIcon })
-                    .addTo(map)
-                    .bindPopup(popupContent);
+            // Initialize the map, centered on the approximate middle of the UK/Ireland
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 53.8, lng: -2.5 },
+                zoom: 5,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false,
+                backgroundColor: '#f3f4f6' // bg-gray-100
             });
 
-            // CRITICAL: Call invalidateSize() to force the map to calculate its viewport correctly
-            // This is necessary when the map loads inside a dynamically sized container (like a flex-item).
-            map.on('load', () => {
-                map.invalidateSize();
+            // Add markers
+            locations.forEach((location) => {
+                const position = { lat: location.lat, lng: location.lon };
+                bounds.extend(position);
+
+                const marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: location.name,
+                    // Custom marker icon (a red pushpin)
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillColor: '#dc2626', // Tailwind red-600
+                        fillOpacity: 0.8,
+                        strokeWeight: 0,
+                        scale: 6,
+                    },
+                });
+
+                // Attach InfoWindow to the marker
+                marker.addListener("click", () => {
+                    infowindow.setContent(`
+                        <div class="p-1 font-inter">
+                            <h2 class="text-base font-bold text-red-700">${location.name}</h2>
+                            <p class="text-sm text-gray-700">${location.area}</p>
+                        </div>
+                    `);
+                    infowindow.open(map, marker);
+                });
             });
 
-            // Adjust map view to fit all markers
+            // Fit the map to include all markers
             if (locations.length > 0) {
-                const bounds = new L.LatLngBounds(locations.map(loc => [loc.lat, loc.lon]));
-                map.fitBounds(bounds, { padding: [50, 50] }); 
+                map.fitBounds(bounds);
+                // Prevent map from zooming too close if all points are very near each other
+                map.setZoom(Math.min(map.getZoom(), 8)); 
             }
-        });
+        }
+
+        // --- Google Maps API Loader ---
+        // This is a common way to load the Google Maps API asynchronously.
+        // Replace YOUR_API_KEY with a valid key for production use.
+        const apiKey = ""; // API key is provided by the canvas environment at runtime
+
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+        script.async = true;
+        document.head.appendChild(script);
     </script>
 </body>
 </html>
