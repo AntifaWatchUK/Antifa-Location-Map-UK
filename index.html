@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Page</title>
-    <style type="text/css"> 
+    <style>
         body {
-            /* Background and layout settings */
+            /* Background settings for a "smaller" image */
+            background-color: #333; /* Dark background color for the edges */
             background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); 
-            background-size: cover;       
+            
+            /* --- THE KEY CHANGE FOR THE BACKGROUND SIZE --- */
+            background-size: 80% auto; /* Image size is 80% of the screen width */
+            /* ----------------------------------------------- */
+            
             background-position: center;  
-            background-repeat: no-repeat; 
+            background-repeat: no-repeat; /* Crucial: ensures it appears only once */
             height: 100vh;                
             margin: 0;                    
             display: flex;                
@@ -19,17 +24,15 @@
             align-items: center;          
         }
 
-        /* Styling for the small image */
+        /* Styling for the small image (already fixed at 50px) */
         .centered-image img { 
-            /* --- SIGNIFICANTLY SMALLER SIZE: 5% of the viewport width (vw) --- */
-            max-width: 5vw; /* This makes the image 5% of the screen width */
-            /* ------------------------------------------------------------------ */
-            height: auto;
+            width: 50px !important;
+            height: auto !important;
             margin-bottom: 5px; 
             display: block; 
         }
 
-        /* Container for the text block, used for vertical alignment */
+        /* Container for the text block */
         .link-container {
             margin-bottom: 20px; 
             text-align: center; 
