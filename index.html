@@ -6,7 +6,7 @@
     <title>Welcome Page</title>
     <style>
         body {
-            /* Your confirmed background image */
+            /* Background and layout settings */
             background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); 
             background-size: cover;       
             background-position: center;  
@@ -19,39 +19,45 @@
             align-items: center;          
         }
 
+        /* Styling for the small image */
         .centered-image img { 
-            max-width: 150px; 
+            /* --- ADJUSTED SIZE: Reduced by 25% (150px * 0.75 = 112.5px) --- */
+            max-width: 112.5px; 
+            /* ----------------------------------------------------------------- */
             height: auto;
             margin-bottom: 5px; 
             display: block; 
         }
 
-        .enter-link {
-            font-size: 1.5em;
-            /* --- Changes for white text in a red box --- */
-            color: white; /* Changed text color to white */
-            background-color: red; /* Added a red background */
-            padding: 10px 20px; /* Added padding inside the red box */
-            border-radius: 5px; /* Slightly rounded corners for the box */
-            /* --- End changes --- */
-
+        /* Container for the text block, used for vertical alignment */
+        .link-container {
+            margin-bottom: 20px; 
             text-align: center; 
-            margin-bottom: 20px; /* Use margin-bottom instead of padding-bottom for the div */
             font-weight: 900;
-            /* Removed text-shadow as it's less necessary with a solid background */
             text-transform: uppercase;
             letter-spacing: 1px; 
             white-space: nowrap; 
         }
 
-        .enter-link a {
-            color: white; /* Ensures the link itself is white */
+        /* STYLES FOR THE RED BOX AND WHITE TEXT */
+        .enter-link-box {
+            display: inline-block; 
+            font-size: 1.5em;
+            color: white; 
+            background-color: red; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+        }
+        
+        /* Link styling */
+        .enter-link-box a {
+            color: white; 
             text-decoration: underline;
             transition: color 0.3s;
         }
 
-        .enter-link a:hover {
-            color: black; /* Changed hover color to black for contrast against red */
+        .enter-link-box a:hover {
+            color: black; 
             cursor: pointer;
         }
     </style>
@@ -61,8 +67,10 @@
         <img src="https://urlto.me/1RrZ" alt="Image above the link">
     </div>
     
-    <div class="enter-link">
-        CLICK <a href="https://antifawatchuk.blogspot.com/p/far-left-extremist-antifa-organisations.html?m=1" target="_blank">HERE</a> TO ENTER
+    <div class="link-container">
+        <span class="enter-link-box">
+            CLICK <a href="https://antifawatchuk.blogspot.com/p/far-left-extremist-antifa-organisations.html?m=1" target="_blank">HERE</a> TO ENTER
+        </span>
     </div>
 </body>
 </html>
