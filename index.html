@@ -1,94 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Page</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Page</title>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        position: relative;
+        background-color: black;
+        font-family: sans-serif;
+    }
+
+    /* Background image wrapper */
+    .background {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;           /* default width */
+        max-width: 600px;     /* prevent it from being too big on large screens */
+        height: auto;
+        max-height: 90%;      /* never exceed 90% of viewport height */
+        background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center top;
+        z-index: 0;
+    }
+
+    /* Content on top */
+    .bottom-content-wrapper {
+        position: relative;  
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        bottom: 5%;
+        margin-bottom: 5%;
+    }
+
+    .centered-image img {
+        width: 50px !important;
+        height: auto !important;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .link-container {
+        text-align: center;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .enter-link-box {
+        display: inline-block;
+        font-size: 2em;
+        color: white;
+        background-color: red;
+        padding: 20px 30px;
+        border-radius: 10px;
+        transition: transform 0.2s;
+    }
+
+    .enter-link-box a {
+        color: white;
+        text-decoration: underline;
+        transition: color 0.3s;
+    }
+
+    .enter-link-box a:hover {
+        color: black;
+        cursor: pointer;
+    }
+
+    .enter-link-box:hover {
+        transform: scale(1.05);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+        .background {
+            width: 90%;        /* slightly larger on small screens */
+            max-height: 70%;   /* scale down to fit smaller screens */
         }
 
-        body {
-            background-color: black;
-            background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg');
-            background-size: 80% auto;       /* smaller background image */
-            background-repeat: no-repeat;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
+        .enter-link-box {
+            font-size: 1.5em;
+            padding: 15px 20px;
         }
 
         .bottom-content-wrapper {
-            position: sticky;
-            bottom: 5%;                   
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;                  
+            bottom: 7%;
         }
+    }
 
-        .centered-image img {
-            width: 50px !important;   /* original size of small icon */
-            height: auto !important;
-            margin-bottom: 10px;
-            display: block;
+    @media (max-height: 500px) {
+        .background {
+            max-height: 60%;   /* shorter screens */
         }
-
-        .link-container {
-            text-align: center;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            white-space: nowrap;
-        }
-
-        /* Mobile-friendly red box */
-        .enter-link-box {
-            display: inline-block;
-            font-size: 2em;               
-            color: white;
-            background-color: red;
-            padding: 20px 30px;
-            border-radius: 10px;
-            transition: transform 0.2s;
-        }
-
-        .enter-link-box a {
-            color: white;
-            text-decoration: underline;
-            transition: color 0.3s;
-        }
-
-        .enter-link-box a:hover {
-            color: black;
-            cursor: pointer;
-        }
-
-        .enter-link-box:hover {
-            transform: scale(1.05);
-        }
-
-        /* Responsive tweaks for very small screens */
-        @media (max-width: 400px) {
-            .enter-link-box {
-                font-size: 1.5em;
-                padding: 15px 20px;
-            }
-
-            .bottom-content-wrapper {
-                bottom: 7%; 
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
+    <div class="background"></div>
+
     <div class="bottom-content-wrapper">
         <div class="centered-image">
             <img src="https://urlto.me/1RrZ" alt="Image above the link">
         </div>
 
-        <div
+        <div class="link-container">
+            <span class="enter-link-box">
+                CLICK <a href="https://antifawatchuk.github.io/Antifa-Location-Map-UK/antifalocationmap.html">HERE</a> TO ENTER
+            </span>
+        </div>
+    </div>
+</body>
+</html>
