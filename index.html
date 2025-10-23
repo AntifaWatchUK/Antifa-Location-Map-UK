@@ -6,16 +6,15 @@
     <title>Welcome Page</title>
     <style>
         body {
-            /* Background settings for a "smaller" image */
-            background-color: #333; /* Dark background color for the edges */
+            /* --- CHANGE: Setting the entire background color to black --- */
+            background-color: black; 
+            
+            /* Styles for the 80% background image */
             background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); 
-            
-            /* --- THE KEY CHANGE FOR THE BACKGROUND SIZE --- */
             background-size: 80% auto; /* Image size is 80% of the screen width */
-            /* ----------------------------------------------- */
-            
+            background-repeat: no-repeat; 
             background-position: center;  
-            background-repeat: no-repeat; /* Crucial: ensures it appears only once */
+            
             height: 100vh;                
             margin: 0;                    
             display: flex;                
@@ -24,7 +23,7 @@
             align-items: center;          
         }
 
-        /* Styling for the small image (already fixed at 50px) */
+        /* Styling for the small image - Forced small size */
         .centered-image img { 
             width: 50px !important;
             height: auto !important;
@@ -65,7 +64,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); background-size: 80% auto; background-repeat: no-repeat; background-position: center;">
     <div class="centered-image">
         <img src="https://urlto.me/1RrZ" alt="Image above the link">
     </div>
