@@ -13,10 +13,10 @@
         overflow-x: hidden;
     }
 
-    /* Top heading moved up */
+    /* Top heading slightly below top */
     .top-heading {
         position: fixed;
-        top: 3%;  /* higher up */
+        top: 5%;   /* visually below page edge */
         left: 50%;
         transform: translateX(-50%);
         color: red;
@@ -30,10 +30,10 @@
         font-weight: 900;
     }
 
-    /* Background image moved up slightly */
+    /* Background image centered under heading */
     .background-img {
         position: fixed;
-        top: 10%;  /* higher up */
+        top: 15%;   /* below heading */
         left: 50%;
         transform: translateX(-50%);
         width: 80%;
@@ -57,21 +57,23 @@
         text-align: center;
     }
 
-    /* Map label slightly lowered */
+    /* Map label just above button */
     .map-label {
         font-size: 1.8em;
         font-weight: 900;
         color: red;
-        margin-bottom: 15px; /* slightly lower than before (was 20px) */
+        margin-bottom: 10px; /* small gap to button */
     }
 
+    /* Small invisible placeholder image */
     .centered-image img {
-        width: 50px !important;
-        height: auto !important;
-        margin-bottom: 15px;
+        width: 1px !important;
+        height: 1px !important;
+        margin-bottom: 10px;
         display: block;
     }
 
+    /* Button container */
     .link-container {
         font-weight: 900;
         text-transform: uppercase;
@@ -104,26 +106,26 @@
         transform: scale(1.05);
     }
 
-    /* Responsive tweaks */
+    /* Responsive adjustments */
     @media (max-width: 600px) {
         .top-heading {
             font-size: 1.5em;
-            top: 2%;
+            top: 4%;
         }
         .background-img {
-            top: 8%;
+            top: 12%;
             width: 90%;
         }
         .map-label {
             font-size: 1.5em;
-            margin-bottom: 12px; /* slightly smaller for mobile */
+            margin-bottom: 8px;
         }
         .enter-link-box {
             font-size: 1.5em;
             padding: 15px 20px;
         }
         .centered-image img {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .bottom-content-wrapper {
             bottom: 7%;
@@ -145,7 +147,7 @@
     <div class="bottom-content-wrapper">
         <div class="map-label">UK AND IRELAND INTERACTIVE MAP</div>
         <div class="centered-image">
-            <img src="https://urlto.me/1RrZ" alt="Image above the link">
+            <img src="https://via.placeholder.com/1" alt="Placeholder image">
         </div>
         <div class="link-container">
             <span class="enter-link-box">
