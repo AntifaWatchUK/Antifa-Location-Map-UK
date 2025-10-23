@@ -17,11 +17,18 @@
         align-items: center;
     }
 
-    /* Heading near the top */
+    /* Top container */
+    .top-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 4vh; /* small space from top of page */
+    }
+
+    /* Top heading */
     .top-heading {
-        margin-top: 30px; /* visually a little below top */
         color: red;
-        font-size: 2em;
+        font-size: 1.5em; /* same as mobile */
         font-weight: 900;
         text-align: center;
     }
@@ -29,21 +36,21 @@
         font-weight: 900;
     }
 
-    /* Subheading underneath the top heading */
+    /* Subheading */
     .subheading {
         color: red;
-        font-size: 1em; /* half the size of top heading */
+        font-size: 0.75em; /* half top heading */
         font-weight: normal;
         margin-top: 5px;
         text-align: center;
     }
 
-    /* Background image below heading */
+    /* Background image */
     .background-img {
-        width: 80%;
+        width: 90%; /* same as mobile */
         max-width: 600px;
         height: auto;
-        margin-top: 20px;
+        margin-top: 2vh;
     }
 
     /* Bottom wrapper */
@@ -51,14 +58,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 30px; /* space from bottom of page */
+        margin-bottom: 5vh; /* same proportion as mobile */
     }
 
     .map-label {
         color: red;
         font-weight: 900;
-        font-size: 1.8em;
-        margin-bottom: 10px; /* gap to placeholder/button */
+        font-size: 1.5em; /* same as mobile */
+        margin-bottom: 8px;
         text-align: center;
     }
 
@@ -66,15 +73,16 @@
     .placeholder {
         width: 1px;
         height: 1px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
+    /* Button */
     .enter-link-box {
         display: inline-block;
-        font-size: 2em;
+        font-size: 1.5em; /* same as mobile */
         color: white;
         background-color: red;
-        padding: 20px 30px;
+        padding: 15px 20px;
         border-radius: 10px;
         font-weight: 900;
         text-transform: uppercase;
@@ -97,37 +105,25 @@
         transform: scale(1.05);
     }
 
-    /* Responsive */
-    @media (max-width: 600px) {
-        .top-heading {
-            font-size: 1.5em;
-        }
-        .subheading {
-            font-size: 0.75em;
-        }
-        .background-img {
-            width: 90%;
-        }
-        .map-label {
-            font-size: 1.5em;
-            margin-bottom: 8px;
-        }
-        .enter-link-box {
-            font-size: 1.5em;
-            padding: 15px 20px;
-        }
+    /* Force desktop to look like mobile */
+    @media (min-width: 601px) {
+        .top-heading { font-size: 1.5em; }
+        .subheading { font-size: 0.75em; }
+        .background-img { width: 90%; }
+        .map-label { font-size: 1.5em; }
+        .enter-link-box { font-size: 1.5em; padding: 15px 20px; }
     }
 </style>
 </head>
 <body>
 
-    <!-- Top heading -->
-    <div class="top-heading">
-        ARE ANTIFA SCUM ACTIVE IN <b>YOUR</b> AREA?
+    <!-- Top container -->
+    <div class="top-container">
+        <div class="top-heading">
+            ARE ANTIFA SCUM ACTIVE IN <b>YOUR</b> AREA?
+        </div>
+        <div class="subheading">UPDATED OCTOBER 2025</div>
     </div>
-
-    <!-- Subheading underneath -->
-    <div class="subheading">UPDATED OCTOBER 2025</div>
 
     <!-- Background image -->
     <img class="background-img" src="https://i.ibb.co/5hJcsYMW/Test.jpg" alt="Background">
