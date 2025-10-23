@@ -6,12 +6,12 @@
     <title>Welcome Page</title>
     <style>
         body {
-            /* --- CHANGE: Setting the entire background color to black --- */
+            /* Background color is black */
             background-color: black; 
             
             /* Styles for the 80% background image */
             background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); 
-            background-size: 80% auto; /* Image size is 80% of the screen width */
+            background-size: 80% auto;
             background-repeat: no-repeat; 
             background-position: center;  
             
@@ -33,7 +33,9 @@
 
         /* Container for the text block */
         .link-container {
-            margin-bottom: 20px; 
+            /* --- KEY CHANGE: Increased margin-bottom to move the block up --- */
+            margin-bottom: 100px; /* Adjust this value (e.g., 50px, 150px) to fine-tune the position */
+            /* ------------------------------------------------------------------ */
             text-align: center; 
             font-weight: 900;
             text-transform: uppercase;
