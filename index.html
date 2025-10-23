@@ -5,85 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Page</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
         body {
-            /* Background color is black */
-            background-color: black; 
-            
-            /* Styles for the 80% background image */
-            background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); 
-            background-size: 80% auto;
-            background-repeat: no-repeat; 
-            background-position: center;  
-            
-            height: 100vh;                
-            margin: 0;                    
-            display: flex;                
-            flex-direction: column; 
-            /* Pushes content to the bottom (this remains) */
-            justify-content: flex-end;    
-            align-items: center;          
+            background-color: black;
+            background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg');
+            background-size: cover;          /* cover entire screen */
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
         }
 
-        /* --- NEW WRAPPER TO CONTROL BOTH ELEMENTS --- */
         .bottom-content-wrapper {
-            /* Adjust this value (100px) to move the entire block higher or lower */
-            margin-bottom: 100px; 
-            display: flex; /* Use flex to align the image and link containers */
-            flex-direction: column; /* Stack them vertically */
-            align-items: center; /* Center them horizontally */
+            position: sticky;
+            bottom: 5%;                   /* distance from bottom */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;                  /* ensures button stays above background */
         }
-        /* ------------------------------------------- */
 
-        /* Styling for the small image - Forced small size */
-        .centered-image img { 
+        .centered-image img {
             width: 50px !important;
             height: auto !important;
-            margin-bottom: 5px; /* Small space between image and text box */
-            display: block; 
+            margin-bottom: 10px;
+            display: block;
         }
 
-        /* Container for the text block (no margin-bottom needed here anymore) */
         .link-container {
-            text-align: center; 
+            text-align: center;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px; 
-            white-space: nowrap; 
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
-        /* STYLES FOR THE RED BOX AND WHITE TEXT */
+        /* Mobile-friendly red box */
         .enter-link-box {
-            display: inline-block; 
-            font-size: 1.5em;
-            color: white; 
-            background-color: red; 
-            padding: 10px 20px; 
-            border-radius: 5px; 
+            display: inline-block;
+            font-size: 2em;               /* big for easy tapping */
+            color: white;
+            background-color: red;
+            padding: 20px 30px;
+            border-radius: 10px;
+            transition: transform 0.2s;
         }
-        
-        /* Link styling */
+
         .enter-link-box a {
-            color: white; 
+            color: white;
             text-decoration: underline;
             transition: color 0.3s;
         }
 
         .enter-link-box a:hover {
-            color: black; 
+            color: black;
             cursor: pointer;
+        }
+
+        .enter-link-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive tweaks for very small screens */
+        @media (max-width: 400px) {
+            .enter-link-box {
+                font-size: 1.5em;
+                padding: 15px 20px;
+            }
+
+            .bottom-content-wrapper {
+                bottom: 7%; /* slightly higher on very small screens */
+            }
         }
     </style>
 </head>
-<body style="background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg'); background-size: 80% auto; background-repeat: no-repeat; background-position: center;">
-    
+<body>
     <div class="bottom-content-wrapper">
         <div class="centered-image">
             <img src="https://urlto.me/1RrZ" alt="Image above the link">
         </div>
-        
+
         <div class="link-container">
             <span class="enter-link-box">
-                CLICK <a href="https://antifawatchuk.blogspot.com/p/far-left-extremist-antifa-organisations.html?m=1" target="_blank">HERE</a> TO ENTER
+                CLICK <a href="https://antifawatchuk.github.io/Antifa-Location-Map-UK/antifalocationmap.html">HERE</a> TO ENTER
             </span>
         </div>
     </div>
