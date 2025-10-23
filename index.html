@@ -13,10 +13,10 @@
         overflow-x: hidden;
     }
 
-    /* Top heading slightly above top */
+    /* Top heading moved higher */
     .top-heading {
         position: fixed;
-        top: 10%;            
+        top: 5%;   /* moved closer to top */
         left: 50%;
         transform: translateX(-50%);
         color: red;
@@ -57,12 +57,11 @@
         text-align: center;
     }
 
-    /* Map label above small image and button */
     .map-label {
         font-size: 1.8em;
         font-weight: 900;
         color: red;
-        margin-bottom: 20px; /* spacing between label and small image */
+        margin-bottom: 20px; /* space between label and small image */
     }
 
     .centered-image img {
@@ -104,11 +103,10 @@
         transform: scale(1.05);
     }
 
-    /* Responsive tweaks */
     @media (max-width: 600px) {
         .top-heading {
             font-size: 1.5em;
-            top: 8%;
+            top: 3%;
         }
         .background-img {
             top: 18%;
