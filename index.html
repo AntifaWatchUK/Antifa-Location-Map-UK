@@ -13,10 +13,10 @@
         overflow-x: hidden;
     }
 
-    /* Top heading moved higher */
+    /* Top heading moved up */
     .top-heading {
         position: fixed;
-        top: 5%;   /* moved closer to top */
+        top: 3%;  /* moved higher */
         left: 50%;
         transform: translateX(-50%);
         color: red;
@@ -30,21 +30,21 @@
         font-weight: 900;
     }
 
-    /* Background image slightly above center */
+    /* Background image moved up */
     .background-img {
-        position: fixed;      
-        top: 20%;           
+        position: fixed;
+        top: 10%;  /* moved higher */
         left: 50%;
         transform: translateX(-50%);
-        width: 80%;           
+        width: 80%;
         max-width: 600px;
         height: auto;
         max-height: 90%;
         z-index: 0;
-        pointer-events: none; 
+        pointer-events: none;
     }
 
-    /* Bottom content wrapper */
+    /* Bottom content wrapper stays at bottom */
     .bottom-content-wrapper {
         position: fixed;
         bottom: 5%;
@@ -57,6 +57,7 @@
         text-align: center;
     }
 
+    /* Map label above small image and button */
     .map-label {
         font-size: 1.8em;
         font-weight: 900;
@@ -106,10 +107,10 @@
     @media (max-width: 600px) {
         .top-heading {
             font-size: 1.5em;
-            top: 3%;
+            top: 2%;
         }
         .background-img {
-            top: 18%;
+            top: 8%;
             width: 90%;
         }
         .map-label {
