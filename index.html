@@ -6,79 +6,58 @@
 <title>Welcome Page</title>
 <style>
     html, body {
-        height: 100%;
         margin: 0;
+        padding: 0;
+        height: 100%;
         font-family: sans-serif;
         background-color: black;
-        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    /* Top heading slightly below top */
+    /* Heading near the top */
     .top-heading {
-        position: fixed;
-        top: 5%;   /* visually below page edge */
-        left: 50%;
-        transform: translateX(-50%);
+        margin-top: 30px; /* visually a little below top */
         color: red;
         font-size: 2em;
         font-weight: 900;
         text-align: center;
-        z-index: 2;
     }
-
     .top-heading b {
         font-weight: 900;
     }
 
-    /* Background image centered under heading */
+    /* Background image below heading */
     .background-img {
-        position: fixed;
-        top: 15%;   /* below heading */
-        left: 50%;
-        transform: translateX(-50%);
         width: 80%;
         max-width: 600px;
         height: auto;
-        max-height: 90%;
-        z-index: 0;
-        pointer-events: none;
+        margin-top: 20px;
     }
 
-    /* Bottom content wrapper */
-    .bottom-content-wrapper {
-        position: fixed;
-        bottom: 5%;
-        left: 50%;
-        transform: translateX(-50%);
+    /* Bottom wrapper */
+    .bottom-wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
-        z-index: 1;
+        margin-bottom: 30px; /* space from bottom of page */
+    }
+
+    .map-label {
+        color: red;
+        font-weight: 900;
+        font-size: 1.8em;
+        margin-bottom: 10px; /* gap to placeholder/button */
         text-align: center;
     }
 
-    /* Map label just above button */
-    .map-label {
-        font-size: 1.8em;
-        font-weight: 900;
-        color: red;
-        margin-bottom: 10px; /* small gap to button */
-    }
-
-    /* Small invisible placeholder image */
-    .centered-image img {
-        width: 1px !important;
-        height: 1px !important;
+    /* Invisible placeholder */
+    .placeholder {
+        width: 1px;
+        height: 1px;
         margin-bottom: 10px;
-        display: block;
-    }
-
-    /* Button container */
-    .link-container {
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        white-space: nowrap;
     }
 
     .enter-link-box {
@@ -88,6 +67,10 @@
         background-color: red;
         padding: 20px 30px;
         border-radius: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-align: center;
+        letter-spacing: 1px;
         transition: transform 0.2s;
     }
 
@@ -99,21 +82,18 @@
 
     .enter-link-box a:hover {
         color: black;
-        cursor: pointer;
     }
 
     .enter-link-box:hover {
         transform: scale(1.05);
     }
 
-    /* Responsive adjustments */
+    /* Responsive */
     @media (max-width: 600px) {
         .top-heading {
             font-size: 1.5em;
-            top: 4%;
         }
         .background-img {
-            top: 12%;
             width: 90%;
         }
         .map-label {
@@ -123,12 +103,6 @@
         .enter-link-box {
             font-size: 1.5em;
             padding: 15px 20px;
-        }
-        .centered-image img {
-            margin-bottom: 5px;
-        }
-        .bottom-content-wrapper {
-            bottom: 7%;
         }
     }
 </style>
@@ -143,17 +117,11 @@
     <!-- Background image -->
     <img class="background-img" src="https://i.ibb.co/5hJcsYMW/Test.jpg" alt="Background">
 
-    <!-- Bottom content -->
-    <div class="bottom-content-wrapper">
+    <!-- Bottom wrapper -->
+    <div class="bottom-wrapper">
         <div class="map-label">UK AND IRELAND INTERACTIVE MAP</div>
-        <div class="centered-image">
-            <img src="https://via.placeholder.com/1" alt="Placeholder image">
-        </div>
-        <div class="link-container">
-            <span class="enter-link-box">
-                CLICK <a href="https://antifawatchuk.github.io/Antifa-Location-Map-UK/antifalocationmap.html">HERE</a> TO ENTER
-            </span>
-        </div>
+        <div class="placeholder"></div>
+        <a class="enter-link-box" href="https://antifawatchuk.github.io/Antifa-Location-Map-UK/antifalocationmap.html">CLICK HERE TO ENTER</a>
     </div>
 
 </body>
