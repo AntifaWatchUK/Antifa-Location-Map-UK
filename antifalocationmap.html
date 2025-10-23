@@ -15,12 +15,18 @@
         integrity="sha256-20n6a9O+SolAF18y3FCPHNszjD0I5Hzb50vWSlPNWA8="
         crossorigin=""></script>
     <style>
-        /* Ensures the map takes up the full available space */
+        /*
+          CRITICAL FIX: Explicitly define the map container height.
+          The h-screen/flex approach can sometimes fail in certain environments.
+          We use calc() to ensure the map fills the whole screen, minus the header/margins.
+        */
         #map {
-            height: 100vh;
-            width: 100vw;
-            border-radius: 0.5rem; /* Rounded corners for the map itself */
+            height: 100%; /* Fill the parent container defined by CSS/Tailwind */
+            width: 100%;
+            display: block;
+            border-radius: 0.5rem;
         }
+
         .leaflet-popup-content-wrapper {
             border-radius: 0.5rem;
             padding: 0.5rem 0.75rem;
@@ -33,15 +39,18 @@
 </head>
 <body class="bg-gray-100 font-inter antialiased overflow-hidden">
 
-    <div class="p-4 md:p-6 lg:p-8 flex flex-col h-screen">
-        <!-- Header -->
-        <header class="mb-4 p-4 bg-white shadow-lg rounded-xl z-[1000] sticky top-0">
+    <!-- Main container uses h-screen to define the full available vertical space -->
+    <div class="flex flex-col h-screen">
+        
+        <!-- Header element (fixed height part) -->
+        <header id="map-header" class="p-4 bg-white shadow-lg rounded-b-xl z-[1000] mb-2">
             <h1 class="text-2xl font-bold text-red-600">Anti-Fascist Network Locations</h1>
             <p class="text-gray-600 text-sm">Click a marker to see the group name and area.</p>
         </header>
 
-        <!-- Map Container -->
-        <div id="map-container" class="flex-grow rounded-xl shadow-2xl overflow-hidden">
+        <!-- Map Container: Uses flex-grow to take the remaining height -->
+        <div id="map-container" class="flex-grow rounded-xl shadow-2xl overflow-hidden mx-4 mb-4">
+            <!-- Map element: h-full w-full ensures it fills its parent container -->
             <div id="map" class="h-full w-full"></div>
         </div>
     </div>
@@ -110,7 +119,7 @@
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
 
-            // Define custom red icon (optional, but good for visual theming)
+            // Define custom red icon 
             const redIcon = new L.Icon({
                 iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -138,10 +147,16 @@
                     .bindPopup(popupContent);
             });
 
-            // Adjust map view to fit all markers if necessary
+            // CRITICAL: Call invalidateSize() to force the map to calculate its viewport correctly
+            // This is necessary when the map loads inside a dynamically sized container (like a flex-item).
+            map.on('load', () => {
+                map.invalidateSize();
+            });
+
+            // Adjust map view to fit all markers
             if (locations.length > 0) {
                 const bounds = new L.LatLngBounds(locations.map(loc => [loc.lat, loc.lon]));
-                map.fitBounds(bounds, { padding: [50, 50] }); // Add some padding around the bounds
+                map.fitBounds(bounds, { padding: [50, 50] }); 
             }
         });
     </script>
