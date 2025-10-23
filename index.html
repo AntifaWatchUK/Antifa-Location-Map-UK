@@ -9,22 +9,32 @@
         height: 100%;
         margin: 0;
         font-family: sans-serif;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
         background-color: black;
-        background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg');
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: 80% auto; /* smaller background */
+        overflow-x: hidden;
     }
 
+    /* Background image container */
+    .background-img {
+        position: fixed;      /* stays behind content */
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;           /* smaller background width */
+        max-width: 600px;
+        height: auto;
+        z-index: 0;
+        pointer-events: none; /* clicks pass through */
+    }
+
+    /* Container for button + small icon */
     .bottom-content-wrapper {
+        position: fixed;      /* always visible */
+        bottom: 5%;           /* distance from bottom */
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 5%;
         z-index: 1;
     }
 
@@ -74,20 +84,28 @@
             font-size: 1.5em;
             padding: 15px 20px;
         }
+        .bottom-content-wrapper {
+            bottom: 7%;
+        }
     }
 </style>
 </head>
 <body>
+
+    <!-- Background Image -->
+    <img class="background-img" src="https://i.ibb.co/5hJcsYMW/Test.jpg" alt="Background">
+
+    <!-- Bottom Content -->
     <div class="bottom-content-wrapper">
         <div class="centered-image">
             <img src="https://urlto.me/1RrZ" alt="Image above the link">
         </div>
-
         <div class="link-container">
             <span class="enter-link-box">
                 CLICK <a href="https://antifawatchuk.github.io/Antifa-Location-Map-UK/antifalocationmap.html">HERE</a> TO ENTER
             </span>
         </div>
     </div>
+
 </body>
 </html>
