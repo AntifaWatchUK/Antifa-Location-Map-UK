@@ -26,12 +26,11 @@
         z-index: 2;
     }
 
-    /* Bold YOUR */
     .top-heading b {
         font-weight: 900;
     }
 
-    /* Background image positioned lower than top but above center */
+    /* Background image */
     .background-img {
         position: fixed;      
         top: 30%;           
@@ -45,20 +44,7 @@
         pointer-events: none; 
     }
 
-    /* Map label positioned above bottom content */
-    .map-label {
-        position: fixed;
-        bottom: 130px;   /* adjust to sit above small image and button */
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 1.8em;
-        font-weight: 900;
-        color: red;
-        text-align: center;
-        z-index: 2;
-    }
-
-    /* Bottom content wrapper */
+    /* Bottom content wrapper using flex spacing */
     .bottom-content-wrapper {
         position: fixed;      
         bottom: 5%;           
@@ -69,6 +55,14 @@
         align-items: center;
         z-index: 1;
         text-align: center;
+    }
+
+    /* Map label inside bottom wrapper, spaced properly */
+    .map-label {
+        font-size: 1.8em;
+        font-weight: 900;
+        color: red;
+        margin-bottom: 25px; /* space between label and image/button */
     }
 
     .centered-image img {
@@ -110,7 +104,6 @@
         transform: scale(1.05);
     }
 
-    /* Responsive tweaks */
     @media (max-width: 600px) {
         .top-heading {
             font-size: 1.5em;
@@ -118,7 +111,7 @@
         }
         .map-label {
             font-size: 1.5em;
-            bottom: 100px;
+            margin-bottom: 15px;
         }
         .enter-link-box {
             font-size: 1.5em;
@@ -140,14 +133,12 @@
         ARE ANTIFA SCUM ACTIVE IN <b>YOUR</b> AREA?
     </div>
 
-    <!-- Background Image -->
+    <!-- Background image -->
     <img class="background-img" src="https://i.ibb.co/5hJcsYMW/Test.jpg" alt="Background">
 
-    <!-- Map label above bottom content -->
-    <div class="map-label">UK AND IRELAND INTERACTIVE MAP</div>
-
-    <!-- Bottom Content -->
+    <!-- Bottom content -->
     <div class="bottom-content-wrapper">
+        <div class="map-label">UK AND IRELAND INTERACTIVE MAP</div>
         <div class="centered-image">
             <img src="https://urlto.me/1RrZ" alt="Image above the link">
         </div>
