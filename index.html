@@ -13,7 +13,7 @@
         body {
             background-color: black;
             background-image: url('https://i.ibb.co/5hJcsYMW/Test.jpg');
-            background-size: cover;          /* cover entire screen */
+            background-size: 80% auto;       /* smaller background image */
             background-repeat: no-repeat;
             background-position: center;
             display: flex;
@@ -24,15 +24,15 @@
 
         .bottom-content-wrapper {
             position: sticky;
-            bottom: 5%;                   /* distance from bottom */
+            bottom: 5%;                   
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 10;                  /* ensures button stays above background */
+            z-index: 10;                  
         }
 
         .centered-image img {
-            width: 50px !important;
+            width: 50px !important;   /* original size of small icon */
             height: auto !important;
             margin-bottom: 10px;
             display: block;
@@ -49,7 +49,7 @@
         /* Mobile-friendly red box */
         .enter-link-box {
             display: inline-block;
-            font-size: 2em;               /* big for easy tapping */
+            font-size: 2em;               
             color: white;
             background-color: red;
             padding: 20px 30px;
@@ -80,7 +80,7 @@
             }
 
             .bottom-content-wrapper {
-                bottom: 7%; /* slightly higher on very small screens */
+                bottom: 7%; 
             }
         }
     </style>
@@ -91,11 +91,4 @@
             <img src="https://urlto.me/1RrZ" alt="Image above the link">
         </div>
 
-        <div class="link-container">
-            <span class="enter-link-box">
-                CLICK <a href="https://antifawatchuk.github.io/Antifa-Location-Map-UK/antifalocationmap.html">HERE</a> TO ENTER
-            </span>
-        </div>
-    </div>
-</body>
-</html>
+        <div
